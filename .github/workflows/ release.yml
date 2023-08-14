@@ -1,4 +1,4 @@
-name: Android
+name: Android CI
 on:
   release:
     types: [published]
