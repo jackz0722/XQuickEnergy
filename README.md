@@ -1,7 +1,7 @@
 # XQuickEnergy
 
 [![License](https://img.shields.io/github/license/constanline/XQuickEnergy.svg)](LICENSE)
-[![Latest Release](https://img.shields.io/github/release/constanline/XQuickEnergy.svg)](../../releases)
+[![Latest Release](https://img.shields.io/github/release/jackz0722/XQuickEnergy.svg)](../../releases)
 [![All Releases Download](https://img.shields.io/github/downloads/constanline/XQuickEnergy/total.svg)](../../releases)
 
 ## 主要功能
