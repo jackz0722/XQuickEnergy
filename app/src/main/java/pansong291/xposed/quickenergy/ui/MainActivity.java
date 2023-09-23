@@ -11,22 +11,21 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.*;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import pansong291.xposed.quickenergy.AntForestToast;
 import pansong291.xposed.quickenergy.R;
+import pansong291.xposed.quickenergy.data.RuntimeInfo;
 import pansong291.xposed.quickenergy.entity.FriendWatch;
-import pansong291.xposed.quickenergy.entity.IdAndName;
 import pansong291.xposed.quickenergy.util.Config;
 import pansong291.xposed.quickenergy.util.FileUtils;
 import pansong291.xposed.quickenergy.util.PermissionUtil;
 import pansong291.xposed.quickenergy.util.Statistics;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class MainActivity extends Activity {
     TextView tvStatistics;
@@ -80,6 +79,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RuntimeInfo.process = "app";
 
         tvStatistics = findViewById(R.id.tv_statistics);
 //        Button btnGithub = findViewById(R.id.btn_github);
@@ -89,8 +89,7 @@ public class MainActivity extends Activity {
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             version = " v" + packageInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+        } catch (PackageManager.NameNotFoundException ignored) {
         }
         this.setTitle(this.getTitle() + version);
 
@@ -114,9 +113,9 @@ public class MainActivity extends Activity {
         if (v.getId() == R.id.btn_test) {
             if (isApkInDebug(this)) {
                 Toast toast = Toast.makeText(this, "测试", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, Config.toastOffsetY());
+                toast.setGravity(toast.getGravity(), toast.getXOffset(), Config.toastOffsetY());
                 toast.show();
-//                sendBroadcast(new Intent("com.eg.android.AlipayGphone.xqe.test"));
+                sendBroadcast(new Intent("com.eg.android.AlipayGphone.xqe.test"));
             }
             return;
         }
@@ -143,7 +142,7 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(this, SettingsActivity.class));
                 return;
             case R.id.btn_friend_watch:
-                ListDialog.show(this, getString(R.string.friend_watch), FriendWatch.getList(), new ArrayList<>(), null);
+                ListDialog.show(this, getString(R.string.friend_watch), FriendWatch.getList(), new ArrayList<>(), null, ListDialog.ListType.SHOW);
                 return;
         }
         Intent it = new Intent(this, HtmlViewerActivity.class);
